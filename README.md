@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/cocoapods/l/Cocoarreios.svg?style=flat)](http://cocoapods.org/pods/Cocoarreios)
 [![Platform](https://img.shields.io/cocoapods/p/Cocoarreios.svg?style=flat)](http://cocoapods.org/pods/Cocoarreios)
 
+📬 A pure Swift implementation of some services for brazilian state post office: Correios. Inspired by https://github.com/paoloo/correios
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
