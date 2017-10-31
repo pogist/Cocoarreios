@@ -7,18 +7,33 @@
 //
 
 import UIKit
+import Cocoarreios
+import Moya
+import Alamofire
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let provider = MoyaProvider<Cocoarreios>()
+        
+        provider.request(.trackPackage(code: "JR000000000BR")) { result in
+            if let error = result.error {
+                print(error)
+            }
+            
+            if let response = result.value {
+                do {
+                    let json = try response.mapJSON()
+                    print(json)
+                    print(response.statusCode)
+                }
+                catch let error {
+                    print(error)
+                }
+            }
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }
 

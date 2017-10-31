@@ -8,7 +8,7 @@ public enum Cocoarreios {
 
 extension Cocoarreios: TargetType {
     
-    public var baseURL: URL { return URL(string: "https://webservice.correios.com.br/service/rest")! }
+    public var baseURL: URL { return URL(string: "http://webservice.correios.com.br/service/rest")! }
     
     public var path: String {
         switch self {
@@ -30,19 +30,30 @@ extension Cocoarreios: TargetType {
         switch self {
             
         case .trackPackage(let code):
-            let params = [
-                "rastroObjeto": [
-                    "usuario": "MobileXect",
-                    "senha": "DRW0#9F$@0",
-                    "tipo": "L",
-                    "resultado": "U",
-                    "objetos": code,
-                    "lingua": "101",
-                    "token": "QTXFMvu_Z-6XYezP3VbDsKBgSeljSqIysM9x"
-                ]
-            ]
+//            let params = [
+//                "rastroObjeto": [
+//                    "usuario": "MobileXect",
+//                    "senha": "DRW0#9F$@0",
+//                    "tipo": "L",
+//                    "resultado": "U",
+//                    "objetos": code,
+//                    "lingua": "101",
+//                    "token": "QTXFMvu_Z-6XYezP3VbDsKBgSeljSqIysM9x"
+//                ]
+//            ]
             
-            return .requestParameters(parameters: params, encoding: PropertyListEncoding.xml)
+            let params: String = "<rastroObjeto>" +
+                "<usuario>MobileXect</usuario>" +
+                "<senha>DRW0#9F$@0</senha>" +
+                "<tipo>L</tipo>" +
+                "<resultado>U</resultado>" +
+                "<objetos>JR000000000BR</objetos>" +
+                "<lingua>101</lingua>" +
+                "<token>QTXFMvu_Z-6XYezP3VbDsKBgSeljSqIysM9x</token>" +
+                "</rastroObjeto>"
+            
+            //return .requestParameters(parameters: params, encoding: PropertyListEncoding.xml)
+            return .requestCompositeData(bodyData: params.data(using: .utf8)!, urlParameters: ["":""])
         }
     }
     
@@ -58,7 +69,10 @@ extension Cocoarreios: TargetType {
         switch self {
         
         case .trackPackage(_):
-            return ["Content-Type": "application/xml"]
+            return [
+                "Content-Type": "application/xml",
+                "Accept": "application/json"
+            ]
         }
     }
 }
