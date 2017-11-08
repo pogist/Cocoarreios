@@ -8,15 +8,15 @@
 import Foundation
 
 public struct Address: Codable {
-    let cep: String
-    let publicPlace: String
-    let complement: String
-    let neighborhood: String
-    let city: String
-    let state: String
-    let unity: String
-    let ibge: String
-    let gia: String
+    public let cep: String
+    public let publicPlace: String
+    public let complement: String
+    public let neighborhood: String
+    public let city: String
+    public let state: String
+    public let unity: String
+    public let ibge: String
+    public let gia: String
     
     enum CodingKeys: String, CodingKey {
         case cep
