@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.5.1)
   - Cocoarreios (0.1.0):
     - Moya (~> 9.0)
+    - Result (~> 3.2)
   - Moya (9.0.0):
     - Moya/Core (= 9.0.0)
   - Moya/Core (9.0.0):
@@ -22,7 +23,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  Cocoarreios: a4611888803615e1bd1a2f1dcdc1292c5283d0a7
+  Cocoarreios: 563960a200bdaba77b0ae366e329109da1377dd1
   Moya: cf5e6ee93af526532f92614004b8ad2ea60fd845
   Nimble: bfe1f814edabba69ff145cb1283e04ed636a67f2
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08

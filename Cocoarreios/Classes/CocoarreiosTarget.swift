@@ -2,45 +2,43 @@ import Foundation
 import Moya
 import Alamofire
 
-public enum Cocoarreios {
-    case searchZipCode(code: String)
-    
-    static let provider = MoyaProvider<Cocoarreios>()
+public enum CocoarreiosTarget {
+    case searchAddress(code: String)
 }
 
-extension Cocoarreios: TargetType {
+extension CocoarreiosTarget: TargetType {
     
     public var baseURL: URL {
         switch self {
-        case .searchZipCode(_):
+        case .searchAddress(_):
             return URL(string: "https://viacep.com.br/ws")!
         }
     }
     
     public var path: String {
         switch self {
-        case .searchZipCode(let code):
+        case .searchAddress(let code):
             return "/\(code)/json/"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .searchZipCode(_):
+        case .searchAddress(_):
             return .get
         }
     }
     
     public var task: Task {
         switch self {
-        case .searchZipCode(_):
+        case .searchAddress(_):
             return .requestPlain
         }
     }
     
     public var sampleData: Data {
         switch self {
-        case .searchZipCode(_):
+        case .searchAddress(_):
             return """
             {
                 "cep": "01001-000",
@@ -60,7 +58,7 @@ extension Cocoarreios: TargetType {
     public var headers: [String: String]? {
         switch self {
             
-        case .searchZipCode(_):
+        case .searchAddress(_):
             return [
                 "Content-Type": "application/json",
                 "Accept": "application/json"

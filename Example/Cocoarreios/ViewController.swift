@@ -8,14 +8,21 @@
 
 import UIKit
 import Cocoarreios
-import Moya
-import Alamofire
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Cocoarreios.request(.searchAddress(code: "60861190")) { result in
+            switch result {
+            case .success(let address):
+                print(address)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
