@@ -47,6 +47,34 @@ override func viewDidLoad() {
 ...
 ```
 
+It's also possible to use the delegate pattern.
+
+```swift 
+
+class ViewController: UIViewController {
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    let cocoarreios = Cocoarreios()
+    cocoarreios.delegate = self
+
+    cocoarreios.request(.address(cep: "01001000"))
+  }
+}
+
+extension ViewController: CocoarreiosDelegate {
+  func receivedAddress(with result: Result<Address, MoyaError>) {
+    switch result {
+    case .success(let address):
+      // Use address here...
+      
+    case .failure(let error):
+      // Do something with error  
+    }
+  }
+}
+```
+
 ## Installation
 
 Cocoarreios is available through [CocoaPods](http://cocoapods.org). To install
