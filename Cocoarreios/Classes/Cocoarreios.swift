@@ -3,74 +3,66 @@ import Moya
 import Alamofire
 
 public enum Cocoarreios {
-    case trackPackage(code: String)
+    case searchZipCode(code: String)
+    
+    static let provider = MoyaProvider<Cocoarreios>()
 }
 
 extension Cocoarreios: TargetType {
     
-    public var baseURL: URL { return URL(string: "http://webservice.correios.com.br/service/rest")! }
+    public var baseURL: URL {
+        switch self {
+        case .searchZipCode(_):
+            return URL(string: "https://viacep.com.br/ws")!
+        }
+    }
     
     public var path: String {
         switch self {
-            
-        case .trackPackage(_):
-            return "/rastro/rastroMobile"
+        case .searchZipCode(let code):
+            return "/\(code)/json/"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-            
-        case .trackPackage(_):
-            return .post
+        case .searchZipCode(_):
+            return .get
         }
     }
     
     public var task: Task {
         switch self {
-            
-        case .trackPackage(let code):
-//            let params = [
-//                "rastroObjeto": [
-//                    "usuario": "MobileXect",
-//                    "senha": "DRW0#9F$@0",
-//                    "tipo": "L",
-//                    "resultado": "U",
-//                    "objetos": code,
-//                    "lingua": "101",
-//                    "token": "QTXFMvu_Z-6XYezP3VbDsKBgSeljSqIysM9x"
-//                ]
-//            ]
-            
-            let params: String = "<rastroObjeto>" +
-                "<usuario>MobileXect</usuario>" +
-                "<senha>DRW0#9F$@0</senha>" +
-                "<tipo>L</tipo>" +
-                "<resultado>U</resultado>" +
-                "<objetos>JR000000000BR</objetos>" +
-                "<lingua>101</lingua>" +
-                "<token>QTXFMvu_Z-6XYezP3VbDsKBgSeljSqIysM9x</token>" +
-                "</rastroObjeto>"
-            
-            //return .requestParameters(parameters: params, encoding: PropertyListEncoding.xml)
-            return .requestCompositeData(bodyData: params.data(using: .utf8)!, urlParameters: ["":""])
+        case .searchZipCode(_):
+            return .requestPlain
         }
     }
     
     public var sampleData: Data {
         switch self {
-            
-        case .trackPackage(_):
-            return "".data(using: .utf8)!
+        case .searchZipCode(_):
+            return """
+            {
+                "cep": "01001-000",
+                "logradouro": "Praça da Sé",
+                "complemento":"lado ímpar",
+                "bairro":"Sé",
+                "localidade":"São Paulo",
+                "uf":"SP",
+                "unidade":"",
+                "ibge":"3550308",
+                "gia":"1004"
+            }
+            """.data(using: .utf8)!
         }
     }
     
     public var headers: [String: String]? {
         switch self {
-        
-        case .trackPackage(_):
+            
+        case .searchZipCode(_):
             return [
-                "Content-Type": "application/xml",
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             ]
         }
