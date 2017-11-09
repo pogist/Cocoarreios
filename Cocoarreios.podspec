@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Cocoarreios'
-  s.version          = '0.1.1'
+  s.version          = '0.2.1'
   s.summary          = '📬 A pure Swift implementation of some services for brazilian state post office: Correios.'
 
   s.description      = <<-DESC
